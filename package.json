@@ -2,13 +2,17 @@
     "name": "@hexlet/code",
     "version": "1.0.0",
     "description": "[![Actions Status](https://github.com/elena-mb/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/elena-mb/frontend-project-lvl2/actions)",
-    "main": "gendiff.js",
+    "main": "bin/gendiff.js",
+    "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/elena-mb/frontend-project-lvl2.git"
+    },
+    "bin": {
+        "gendiff": "bin/gendiff.js"
     },
     "author": "elena-mb",
     "license": "ISC",
@@ -17,6 +21,13 @@
     },
     "homepage": "https://github.com/elena-mb/frontend-project-lvl2#readme",
     "dependencies": {
-        "commander": "^9.2.0"
+        "commander": "^9.2.0",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "eslint": "^8.14.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "jest": "^28.0.3"
     }
 }
