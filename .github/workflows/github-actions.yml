@@ -1,0 +1,30 @@
+name: Node.js CI
+
+on: push
+
+jobs:
+  build: 
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [14.x]
+
+
+    steps:
+      # Clone repo
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+      # Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      # Install dependencies 
+      - run: make install
+      # Run linter
+      - run: make lint
+      # Run tests
+      - run: make test
