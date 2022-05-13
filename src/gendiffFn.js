@@ -1,15 +1,12 @@
-import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-
-// const file1 = '../__fixtures__/file1.json';
-// const file2 = '../__fixtures__/file2.json';
+import parse from './parsers.js';
 
 function genDiff(filepath1, filepath2) {
   const resolvedPath1 = path.resolve(filepath1);
   const resolvedPath2 = path.resolve(filepath2);
-  const data1 = JSON.parse(fs.readFileSync(resolvedPath1, 'utf-8'));
-  const data2 = JSON.parse(fs.readFileSync(resolvedPath2, 'utf-8'));
+  const data1 = parse(resolvedPath1);
+  const data2 = parse(resolvedPath2);
   const keys = _.uniq([...Object.keys(data1), ...Object.keys(data2)].sort());
   const difference = [];
   keys.forEach((key) => {
