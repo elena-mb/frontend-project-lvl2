@@ -2,7 +2,7 @@
     "name": "@hexlet/code",
     "version": "1.0.0",
     "description": "[![Actions Status](https://github.com/elena-mb/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/elena-mb/frontend-project-lvl2/actions)",
-    "main": "bin/gendiff.js",
+    "main": "bin/program.js",
     "type": "module",
     "scripts": {
         "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
@@ -12,7 +12,7 @@
         "url": "git+https://github.com/elena-mb/frontend-project-lvl2.git"
     },
     "bin": {
-        "gendiff": "bin/gendiff.js"
+        "gendiff": "bin/program.js"
     },
     "author": "elena-mb",
     "license": "ISC",
@@ -22,6 +22,7 @@
     "homepage": "https://github.com/elena-mb/frontend-project-lvl2#readme",
     "dependencies": {
         "commander": "^9.2.0",
+        "gendiff": "^1.0.0",
         "js-yaml": "^4.1.0",
         "lodash": "^4.17.21"
     },
