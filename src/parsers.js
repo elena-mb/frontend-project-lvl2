@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
-// import process from 'node:process';
 
 const parse = (filepath) => {
   const extension = path.extname(filepath);
