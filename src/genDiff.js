@@ -1,7 +1,7 @@
 import path from 'path';
 import _ from 'lodash';
 import parse from './parsers.js';
-import stylish from './stylish.js';
+import makePretty from './formatters/index.js';
 
 function diffObjs(obj1, obj2) {
   const keys = _.uniq([...Object.keys(obj1), ...Object.keys(obj2)]);
@@ -38,6 +38,6 @@ function genDiff(filepath1, filepath2, format = 'stylish') {
   const data1 = parse(resolvedPath1);
   const data2 = parse(resolvedPath2);
   const ast = diffObjs(data1, data2);
-  return format === 'stylish' ? stylish(ast, data1, data2) : 'working on other formats';
+  return makePretty(ast, data1, data2, format);
 }
 export default genDiff;
