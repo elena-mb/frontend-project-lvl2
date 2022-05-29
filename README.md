@@ -6,4 +6,4 @@
 [![Node.js CI](https://github.com/elena-mb/frontend-project-lvl2/actions/workflows/github-actions.yml/badge.svg)](https://github.com/elena-mb/frontend-project-lvl2/actions)
 
 Asciinema of how the package works:
-[![asciicast](https://asciinema.org/a/J0gCQQbAqBLHu1evzRhTFgkE4.svg)](https://asciinema.org/a/J0gCQQbAqBLHu1evzRhTFgkE4)
+[![asciicast](https://asciinema.org/a/BP7Ist8tiRSDXuzmEuOZew5oc.svg)](https://asciinema.org/a/BP7Ist8tiRSDXuzmEuOZew5oc)
