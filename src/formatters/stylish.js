@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import stringify from './stringify.js';
 
 function stylish(ast, obj1, obj2, depth = 1) {
@@ -13,8 +14,8 @@ function stylish(ast, obj1, obj2, depth = 1) {
         : `${indent}  ${key}: ${o1[key]}`;
     },
     changed(key, o1, o2, hasChildren) {
-      return `${this
-        .deleted(key, o1, o2, hasChildren)}\n${this
+      return `${mapping
+        .deleted(key, o1, o2, hasChildren)}\n${mapping
         .added(key, o1, o2, hasChildren)}`;
     },
 
@@ -30,7 +31,7 @@ function stylish(ast, obj1, obj2, depth = 1) {
         : `${indent}+ ${key}: ${o2[key]}`;
     },
   };
-  const keys = Object.keys(ast).sort();
+  const keys = _.sortBy(Object.keys(ast));
   const strings = keys
     .map((key) => {
       const { status } = ast[key];

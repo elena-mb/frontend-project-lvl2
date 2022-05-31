@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 function plain(ast, obj1, obj2, acc = '') {
-  const keys = Object.keys(ast).sort();
+  const keys = _.sortBy(Object.keys(ast));
   const getPrefix = (key) => (acc.length > 0 ? `${acc}.${key}` : key);
   const formatValue = (key, obj) => {
     const value = _.get(obj, key);

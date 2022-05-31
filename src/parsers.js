@@ -4,13 +4,13 @@ import yaml from 'js-yaml';
 
 const parse = (filepath) => {
   const extension = path.extname(filepath);
-  let parsedData;
+  const parsed = {};
   if (extension === '.json') {
-    parsedData = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+    parsed.data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
   } if (extension === '.yml' || extension === '.yaml') {
-    parsedData = yaml.load(fs.readFileSync(filepath, 'utf-8'));
+    parsed.data = yaml.load(fs.readFileSync(filepath, 'utf-8'));
   }
-  return parsedData;
+  return parsed.data;
 };
 
 export default parse;

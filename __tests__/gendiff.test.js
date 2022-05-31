@@ -1,5 +1,5 @@
 import path, { dirname } from 'path';
-import * as fs from 'node:fs/promises';
+import * as fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/genDiff.js';
 
@@ -64,11 +64,11 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-let gendiffResultJSON;
+const gendiffResultJSON = {};
 
 beforeAll(async () => {
   const resultData = await fs.readFile(getFixturePath('result.json'), 'utf-8');
-  gendiffResultJSON = JSON.parse(resultData);
+  gendiffResultJSON.data = JSON.parse(resultData);
 });
 
 test('json files, stylish format', () => {
@@ -99,5 +99,5 @@ test('json files, json format', () => {
   const filepath1 = getFixturePath('file1.json');
   const filepath2 = getFixturePath('file2.json');
   const actual = genDiff(filepath1, filepath2, 'json');
-  expect(JSON.parse(actual)).toEqual(gendiffResultJSON);
+  expect(JSON.parse(actual)).toEqual(gendiffResultJSON.data);
 });

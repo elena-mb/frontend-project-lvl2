@@ -45,7 +45,7 @@ function json(ast, data1, data2) {
       };
     },
   };
-  const keys = Object.keys(ast).sort();
+  const keys = _.sortBy(Object.keys(ast));
   const diffObject = keys
     .reduce((acc, key) => {
       const { status } = ast[key];
