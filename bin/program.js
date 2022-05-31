@@ -11,6 +11,6 @@ program
   .option('-f, --format <type>', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => console
-    .log(options.format, genDiff(filepath1, filepath2, options.format)));
+    .log(genDiff(filepath1, filepath2, options.format)));
 
 program.parse();
