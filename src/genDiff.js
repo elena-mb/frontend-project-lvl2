@@ -19,7 +19,7 @@ function diffObjs(obj1, obj2) {
   };
 
   keys.forEach((key) => {
-    ast[key] = {
+    const syntax = {
       status: getKeyStatus(key),
       hasChildren() {
         return _.isObject(obj1[key]) || _.isObject(obj2[key]);
@@ -28,6 +28,7 @@ function diffObjs(obj1, obj2) {
         ? diffObjs(obj1[key], obj2[key])
         : {},
     };
+    _.set(ast, key, syntax);
   });
   return ast;
 }

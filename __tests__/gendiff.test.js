@@ -1,6 +1,7 @@
 import path, { dirname } from 'path';
 import * as fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import _ from 'lodash';
 import genDiff from '../src/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -68,7 +69,8 @@ const gendiffResultJSON = {};
 
 beforeAll(async () => {
   const resultData = await fs.readFile(getFixturePath('result.json'), 'utf-8');
-  gendiffResultJSON.data = JSON.parse(resultData);
+  const parsedData = JSON.parse(resultData);
+  _.set(gendiffResultJSON, 'data', parsedData);
 });
 
 test('json files, stylish format', () => {
