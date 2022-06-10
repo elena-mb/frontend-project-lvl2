@@ -2,9 +2,9 @@ import _ from 'lodash';
 
 function plain(ast, obj1, obj2, acc = '') {
   const keys = _.sortBy(Object.keys(ast));
-  const getPrefix = (key) => (acc.length > 0 ? `${acc}.${key}` : key);
+  const getPathTo = (key) => (acc.length > 0 ? `${acc}.${key}` : key);
   const formatValue = (key, obj) => {
-    const value = _.get(obj, key);
+    const value = obj[key];
     if (_.isObject(value)) {
       return '[complex value]';
     } if (_.isString(value)) {
@@ -13,24 +13,29 @@ function plain(ast, obj1, obj2, acc = '') {
     return value;
   };
   const mapping = {
-    unchanged(key, o1, o2, hasChildren) {
-      return hasChildren
-        ? plain(ast[key].children, o1[key], o2[key], getPrefix(key))
-        : null;
+    nested(key, o1, o2) {
+      return plain(ast[key].children, o1[key], o2[key], getPathTo(key));
     },
+
+    unchanged() {
+      return null;
+    },
+
     changed(key, o1, o2) {
-      return `Property '${getPrefix(key)}' was updated. From ${formatValue(key, o1)} to ${formatValue(key, o2)}`;
+      return `Property '${getPathTo(key)}' was updated. From ${formatValue(key, o1)} to ${formatValue(key, o2)}`;
     },
+
     deleted(key) {
-      return `Property '${getPrefix(key)}' was removed`;
+      return `Property '${getPathTo(key)}' was removed`;
     },
+
     added(key, o1, o2) {
-      return `Property '${getPrefix(key)}' was added with value: ${formatValue(key, o2)}`;
+      return `Property '${getPathTo(key)}' was added with value: ${formatValue(key, o2)}`;
     },
   };
   const strings = keys.map((key) => {
     const { status } = ast[key];
-    return mapping[status](key, obj1, obj2, ast[key].hasChildren());
+    return mapping[status](key, obj1, obj2);
   }).filter((val) => val !== null);
   return strings.join('\n');
 }
