@@ -1,77 +1,28 @@
 import path, { dirname } from 'path';
-import * as fs from 'fs/promises';
+import * as fs from 'fs';
 import { fileURLToPath } from 'url';
-import _ from 'lodash';
+// import _ from 'lodash';
 import genDiff from '../src/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const gendiffResultStylish = `{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}`;
+function getParsedResult(filename) {
+  const extension = path.extname(filename);
+  switch (extension) {
+    case '.txt':
+      return fs.readFileSync(getFixturePath(filename), 'utf-8').toString().trim();
+    case '.json':
+      return JSON.parse(fs.readFileSync(getFixturePath(filename), 'utf-8'));
+    default:
+      throw new Error('wrong file format');
+  }
+}
 
-const gendiffResultPlain = `Property 'common.follow' was added with value: false
-Property 'common.setting2' was removed
-Property 'common.setting3' was updated. From true to null
-Property 'common.setting4' was added with value: 'blah blah'
-Property 'common.setting5' was added with value: [complex value]
-Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
-Property 'common.setting6.ops' was added with value: 'vops'
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group1.nest' was updated. From [complex value] to 'str'
-Property 'group2' was removed
-Property 'group3' was added with value: [complex value]`;
-
-const gendiffResultJSON = {};
-
-beforeAll(async () => {
-  const resultData = await fs.readFile(getFixturePath('result.json'), 'utf-8');
-  const parsedData = JSON.parse(resultData);
-  _.set(gendiffResultJSON, 'data', parsedData);
-});
+const gendiffResultStylish = getParsedResult('resultStylish.txt');
+const gendiffResultPlain = getParsedResult('resultPlain.txt');
+const gendiffResultJSON = getParsedResult('resultJSON.json');
 
 test('json files, stylish format', () => {
   const filepath1 = getFixturePath('file1.json');
@@ -101,5 +52,5 @@ test('json files, json format', () => {
   const filepath1 = getFixturePath('file1.json');
   const filepath2 = getFixturePath('file2.json');
   const actual = genDiff(filepath1, filepath2, 'json');
-  expect(JSON.parse(actual)).toEqual(gendiffResultJSON.data);
+  expect(JSON.parse(actual)).toEqual(gendiffResultJSON);
 });
