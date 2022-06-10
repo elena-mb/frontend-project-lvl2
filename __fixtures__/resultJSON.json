@@ -1,0 +1,34 @@
+{
+    "common": {
+        "status": "nested",
+        "children": {
+            "setting1": { "status": "unchanged", "children": {} },
+            "setting2": { "status": "deleted", "children": {} },
+            "setting3": { "status": "changed", "children": {} },
+            "setting6": {
+                "status": "nested",
+                "children": {
+                    "key": { "status": "unchanged", "children": {} },
+                    "doge": {
+                        "status": "nested",
+                        "children": { "wow": { "status": "changed", "children": {} } }
+                    },
+                    "ops": { "status": "added", "children": {} }
+                }
+            },
+            "follow": { "status": "added", "children": {} },
+            "setting4": { "status": "added", "children": {} },
+            "setting5": { "status": "added", "children": {} }
+        }
+    },
+    "group1": {
+        "status": "nested",
+        "children": {
+            "baz": { "status": "changed", "children": {} },
+            "foo": { "status": "unchanged", "children": {} },
+            "nest": { "status": "changed", "children": {} }
+        }
+    },
+    "group2": { "status": "deleted", "children": {} },
+    "group3": { "status": "added", "children": {} }
+}
